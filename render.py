@@ -15,6 +15,7 @@
 
 import argparse
 from threedgrut.render import Renderer
+import torch
 
 if __name__ == "__main__":
     # Set up command line argument parser
@@ -32,5 +33,13 @@ if __name__ == "__main__":
                         out_dir=args.out_dir,
                         save_gt=args.save_gt,
                         computes_extra_metrics=args.compute_extra_metrics)
+    
+
+    print(torch.cuda.is_available())
+
+    print(torch.cuda.device_count())
+    print(torch.cuda.current_device())
+    print(torch.cuda.device(0))
+    print(torch.cuda.get_device_name(0))
 
     renderer.render_all()
