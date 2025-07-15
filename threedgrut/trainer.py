@@ -14,6 +14,7 @@
 # limitations under the License.
 
 import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:512"
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Optional, Union
