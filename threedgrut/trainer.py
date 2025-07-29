@@ -14,6 +14,7 @@
 # limitations under the License.
 
 import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:512"
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Optional, Union
@@ -670,6 +671,11 @@ class Trainer3DGRUT:
             ckpt_path = os.path.join(out_dir, "ckpt_last.pt")
         torch.save(parameters, ckpt_path)
         logger.info(f'💾 Saved checkpoint to: "{os.path.abspath(ckpt_path)}"')
+
+        conf = self.conf
+        if conf.export_ply.enabled:
+            ply_path = conf.export_ply.path if conf.export_ply.path else os.path.join(out_dir, "export_{global_step}.ply")
+            self.model.export_ply(ply_path)
 
     def render_gui(self, scene_updated):
         """Render & refresh a single frame for the gui"""

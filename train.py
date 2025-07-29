@@ -41,7 +41,7 @@ def main(conf: DictConfig) -> None:
 
     # # NOTE: It is also possible to directly instantiate a trainer from a checkpoint/INGP/PLY file
     # c = OmegaConf.load("example.yaml")
-    # trainer = Trainer3DGRUT.create_from_ckpt("checkpoint.pt", DictConfig(c))
+    # trainer = Trainer3DGRUT.create_from_checkpoint("runs/bonsai_3dgrt/bonsai-1806_140944/ours_7000/ckpt_7000.pt", conf)
     # trainer = Trainer3DGRUT.create_from_ingp("export_last.ingp", DictConfig(c))
     # trainer = Trainer3DGRUT.create_from_ply("export_last.ply", DictConfig(c))
 

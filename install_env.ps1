@@ -43,9 +43,14 @@ if ($CurrentEnv -ne $CondaEnv) {
 }
 Write-Host "Current environment: $CurrentEnv" -ForegroundColor Green
 
+# Install CUDA toolkit 12.4 (nvcc, headers, libs)
+Write-Host "`nInstalling CUDA toolkit 12.4 (nvcc, etc.)..." -ForegroundColor Yellow
+conda install -y -c nvidia/label/cuda-12.4.0 cuda-toolkit
+Check-LastCommand "CUDA toolkit installation"
+
 # Install PyTorch with CUDA support (CRITICAL: This must complete first)
-Write-Host "`nInstalling PyTorch + CUDA (this may take several minutes)..." -ForegroundColor Yellow
-pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu118
+Write-Host "`nInstalling PyTorch + CUDA 12.4 (this may take several minutes)..." -ForegroundColor Yellow
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 Check-LastCommand "PyTorch installation"
 
 # Verify PyTorch installation
@@ -55,7 +60,7 @@ Check-LastCommand "PyTorch verification"
 
 # Install build tools
 Write-Host "Installing build tools (cmake, ninja)..." -ForegroundColor Yellow
-conda install -y cmake ninja -c nvidia/label/cuda-11.8.0
+conda install -y cmake ninja -c nvidia/label/cuda-12.4.0
 Check-LastCommand "Build tools installation"
 
 # Initialize Git submodules
@@ -79,7 +84,7 @@ Check-LastCommand "Hydra-core installation"
 
 # Install Kaolin
 Write-Host "Installing Kaolin (this may take a while)..." -ForegroundColor Yellow
-pip install https://nvidia-kaolin.s3.us-east-2.amazonaws.com/torch-2.5.1_cu118/kaolin-0.17.0-cp311-cp311-win_amd64.whl
+pip install https://nvidia-kaolin.s3.us-east-2.amazonaws.com/torch-2.5.1_cu124/kaolin-0.17.0-cp311-cp311-win_amd64.whl
 Check-LastCommand "Kaolin installation"
 
 # Install project in development mode

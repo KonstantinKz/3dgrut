@@ -214,18 +214,19 @@ class Renderer:
                 worst_psnr_img_gt = gt_img_to_write
 
             # evaluate on full image
-            ssim.append(
-                criterions["ssim"](
-                    pred_rgb_full.permute(0, 3, 1, 2),
-                    rgb_gt_full.permute(0, 3, 1, 2),
-                ).item()
-            )
-            lpips.append(
-                criterions["lpips"](
-                    pred_rgb_full.clip(0, 1).permute(0, 3, 1, 2),
-                    rgb_gt_full.permute(0, 3, 1, 2),
-                ).item()
-            )
+            if self.compute_extra_metrics:
+                ssim.append(
+                    criterions["ssim"](
+                        pred_rgb_full.permute(0, 3, 1, 2),
+                        rgb_gt_full.permute(0, 3, 1, 2),
+                    ).item()
+                )
+                lpips.append(
+                    criterions["lpips"](
+                        pred_rgb_full.clip(0, 1).permute(0, 3, 1, 2),
+                        rgb_gt_full.permute(0, 3, 1, 2),
+                    ).item()
+                )
 
             # Record the time
             inference_time.append(outputs["frame_time_ms"])
