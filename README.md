@@ -1,3 +1,25 @@
+# How to train: 
+
+  1. Run the installation script: `./install_env.ps1`
+  2. Download the [NeRF Synthetic dataset](https://www.kaggle.com/datasets/nguyenhung1903/nerf-synthetic-dataset), 
+[MipNeRF360 dataset](https://jonbarron.info/mipnerf360/) or [ScanNet++](https://kaldir.vc.in.tum.de/scannetpp/) datasets
+  3. Run the training with:
+
+  ```bash
+  # NeRF Synthetic dataset: 
+  python train.py --config-name apps/nerf_synthetic_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}  
+
+  # MipNeRF360 dataset: 
+  python train.py --config-name apps/colmap_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+  
+  # ScanNet++: 
+  python train.py --config-name apps/scannetpp_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+```
+
+### Notes:
+  If you encounter any problems with the compilation of the `fused_ssim` package, run:
+`conda install -c anaconda vs2019_win-64`
+
 <p align="center">
   <img height="100" src="assets/3dgrut_logo.png">
 </p>
