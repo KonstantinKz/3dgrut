@@ -10,10 +10,13 @@
   python train.py --config-name apps/nerf_synthetic_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}  
 
   # MipNeRF360 dataset: 
-  python train.py --config-name apps/colmap_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+  python train.py --config-name apps/colmap_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name} dataset.downsample_factor=2
   
   # ScanNet++: 
   python train.py --config-name apps/scannetpp_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+
+  # Example: 
+  python train.py --config-name apps/colmap_3dgrt.yaml path=data/bonsai out_dir=runs experiment_name=bonsai 
 ```
 
 ### Notes:
