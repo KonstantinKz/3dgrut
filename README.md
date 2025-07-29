@@ -1,5 +1,8 @@
 # How to train: 
 
+Prerequisites:
+[Anaconda](https://www.anaconda.com/download)
+
   1. Run the installation script: `./install_env.ps1`
   2. Download the [NeRF Synthetic dataset](https://www.kaggle.com/datasets/nguyenhung1903/nerf-synthetic-dataset), 
 [MipNeRF360 dataset](https://jonbarron.info/mipnerf360/) or [ScanNet++](https://kaldir.vc.in.tum.de/scannetpp/) datasets
