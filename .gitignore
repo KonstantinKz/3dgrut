@@ -10,6 +10,8 @@ outputs/
 extra_info/
 eval/
 extra_info/
+datasets/
+models/
 
 debug_**
 
