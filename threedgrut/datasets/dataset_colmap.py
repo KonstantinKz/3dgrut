@@ -382,6 +382,29 @@ class ColmapDataset(Dataset, BoundedMultiViewDataset, DatasetVisualization):
 
         return output_dict
 
+    def get_camera_matrix(self, batch):
+        view = batch["pose"][0].to(self.device, non_blocking=True)
+        intr = batch["intr"][0].item()
+
+        worker_intrinsics = self._lazy_worker_intrinsics_cache()
+
+        camera_params_dict, rays_ori, rays_dir, camera_name = worker_intrinsics[intr]
+
+        f_w = camera_params_dict["focal_length"][0]
+        f_h = camera_params_dict["focal_length"][1]
+
+        proj = torch.tensor(
+            [
+                [f_w, 0.0, 0.0, 0.0],
+                [0.0, f_h, 0.0, 0.0],
+                [0.0, 0.0, 0.0,  0.0],
+                [0.0, 0.0, -1,  0],
+            ]
+        , device=self.device)
+
+        camera_mat = proj @ view
+        return camera_mat
+
     def get_gpu_batch_with_intrinsics(self, batch):
         """Add the intrinsics to the batch and move data to GPU."""
 
