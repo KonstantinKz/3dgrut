@@ -234,7 +234,8 @@ class Renderer:
                 )
 
             height, width = gpu_batch.rgb_gt.shape[1:3]
-            camera_poses.append({"matrix": batch["pose"].tolist(), "resolution": list([width, height])})
+            fovy = self.dataset.get_fov_y(batch)
+            camera_poses.append({"matrix": batch["pose"].tolist(), "resolution": list([width, height]), "fovy": fovy.tolist()},)
 
             # Record the time
             inference_time.append(outputs["frame_time_ms"])
