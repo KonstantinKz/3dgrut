@@ -2,29 +2,37 @@
 
 Prerequisites:
 [Anaconda](https://www.anaconda.com/download)
-
-  1. Run the installation script: `./install_env.ps1`
-  2. Download the [NeRF Synthetic dataset](https://www.kaggle.com/datasets/nguyenhung1903/nerf-synthetic-dataset), 
-[MipNeRF360 dataset](https://jonbarron.info/mipnerf360/) or [ScanNet++](https://kaldir.vc.in.tum.de/scannetpp/) datasets
-  3. Run the training with:
-
-  ```bash
-  # NeRF Synthetic dataset: 
-  python train.py --config-name apps/nerf_synthetic_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}  
-
-  # MipNeRF360 dataset: 
-  python train.py --config-name apps/colmap_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name} dataset.downsample_factor=2
   
-  # ScanNet++: 
-  python train.py --config-name apps/scannetpp_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+1. **Set up the environment:** 
+    - Open the Anaconda PowerShell Prompt, navigate to the project directory, and run the setup script: `./install_env.ps1`
+  
+2. **Download a dataset:** 
+    - [NeRF Synthetic dataset](https://www.kaggle.com/datasets/nguyenhung1903/nerf-synthetic-dataset), 
+    - [MipNeRF360 dataset](https://jonbarron.info/mipnerf360/), 
+    - [ScanNet++](https://kaldir.vc.in.tum.de/scannetpp/) datasets
 
-  # Example: 
-  python train.py --config-name apps/colmap_3dgrt.yaml path=data/bonsai out_dir=runs experiment_name=bonsai 
-```
+3. **Start training:**
+    - Activate the conda environment: `conda activate 3dgrut` and run the training command based on the dataset: 
+
+    ```bash
+      # NeRF Synthetic dataset: 
+      python train.py --config-name apps/nerf_synthetic_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}  
+
+      # MipNeRF360 dataset: 
+      python train.py --config-name apps/colmap_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name} dataset.downsample_factor=2
+      
+      # ScanNet++: 
+      python train.py --config-name apps/scannetpp_3dgrt.yaml path={path to dataset} out_dir={dir} experiment_name={name}
+
+      # Example: 
+      python train.py --config-name apps/colmap_3dgrt.yaml path=data/bonsai out_dir=runs experiment_name=bonsai 
+    ```
 
 ### Notes:
-  If you encounter any problems with the compilation of the `fused_ssim` package, run:
+  If you run into issues with compiling the `fused_ssim` package, try installing Visual Studio tools:
 `conda install -c anaconda vs2019_win-64`
+
+---
 
 <p align="center">
   <img height="100" src="assets/3dgrut_logo.png">
