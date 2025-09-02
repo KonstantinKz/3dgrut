@@ -674,7 +674,7 @@ class Trainer3DGRUT:
 
         conf = self.conf
         if conf.export_ply.enabled:
-            ply_path = conf.export_ply.path if conf.export_ply.path else os.path.join(out_dir, "export_{global_step}.ply")
+            ply_path = conf.export_ply.path if conf.export_ply.path else os.path.join(out_dir, f"export_{int(global_step)}.ply")
             self.model.export_ply(ply_path)
 
     def render_gui(self, scene_updated):
