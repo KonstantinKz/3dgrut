@@ -89,9 +89,6 @@ class BoundedMultiViewDataset(Protocol):
         """
         ...
 
-    def get_camera_matix(self, batch: dict) -> np.ndarray:
-        ...
-
     def get_gpu_batch_with_intrinsics(self, batch: dict) -> Batch:
         """Add the intrinsics to the batch and move data to GPU."""
         ...

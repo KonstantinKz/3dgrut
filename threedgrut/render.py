@@ -234,8 +234,7 @@ class Renderer:
                 )
 
             height, width = gpu_batch.rgb_gt.shape[1:3]
-            camera_matrix = self.dataset.get_camera_matrix(batch)
-            camera_poses.append({"matrix": camera_matrix.tolist(), "resolution": list([width, height])})
+            camera_poses.append({"matrix": batch["pose"].tolist(), "resolution": list([width, height])})
 
             # Record the time
             inference_time.append(outputs["frame_time_ms"])
