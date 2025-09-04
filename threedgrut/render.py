@@ -147,14 +147,14 @@ class Renderer:
                 "lpips": LearnedPerceptualImagePatchSimilarity(net_type="vgg", normalize=True).to("cuda"),
             }
 
-        output_path_renders = os.path.join(self.out_dir, f"ours_{int(self.global_step)}", "renders")
+        output_path_renders = os.path.join(self.out_dir, "renders")
         os.makedirs(output_path_renders, exist_ok=True)
 
-        output_path_camera_poses = os.path.join(self.out_dir, f"ours_{int(self.global_step)}", "camera_poses")
+        output_path_camera_poses = os.path.join(self.out_dir, "camera_poses")
         os.makedirs(output_path_camera_poses, exist_ok=True)
 
         if self.save_gt:
-            output_path_gt = os.path.join(self.out_dir, f"ours_{int(self.global_step)}", "gt")
+            output_path_gt = os.path.join(self.out_dir, "gt")
             os.makedirs(output_path_gt, exist_ok=True)
 
         psnr = []
