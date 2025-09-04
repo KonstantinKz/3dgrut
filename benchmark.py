@@ -11,12 +11,12 @@ from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 from PIL import Image
 from torchvision.transforms import ToTensor
 from threedgrut.utils.logger import logger
+import json
 
 def load_image(path, device):
     img = Image.open(path).convert("RGB")
     img_tensor = ToTensor()(img).unsqueeze(0).to(device)  # [1, 3, H, W]
     return img_tensor
-
 
 @torch.no_grad()
 def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=True):
@@ -68,6 +68,17 @@ def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=Tr
         # print(f"[{i}] {pred_name}: PSNR={psnr_value:.2f}" + 
         #     (f", SSIM={ssim_value:.3f}, LPIPS={lpips_value:.3f}" if compute_extra_metrics else ""))
 
+    json_file_path = pred_dir + "/frametime.json"
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+
+    frame_times = data.get('frame_times', [])
+
+    if not frame_times:
+        print("No frame times found in the JSON file.")
+
+    mean_inference_time = np.mean(frame_times)
+
     mean_psnr = np.mean(psnr)
     std_psnr = np.std(psnr)
     
@@ -85,6 +96,7 @@ def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=Tr
                 mean_ssim=mean_ssim,
                 mean_lpips=mean_lpips,
                 std_psnr=std_psnr,
+                mean_inference_time=mean_inference_time,
         )
 
         results["mean_ssim"] = mean_ssim
@@ -93,6 +105,7 @@ def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=Tr
         table = dict(
             mean_psnr=mean_psnr,
             std_psnr=std_psnr,
+            mean_inference_time=mean_inference_time,
         )
 
     logger.log_table(f"⭐ Test Metrics predicted and GT images on disk", record=table)
