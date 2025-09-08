@@ -96,7 +96,6 @@ def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=Tr
                 mean_ssim=mean_ssim,
                 mean_lpips=mean_lpips,
                 std_psnr=std_psnr,
-                mean_inference_time=mean_inference_time,
         )
 
         results["mean_ssim"] = mean_ssim
@@ -105,8 +104,9 @@ def evaluate_from_disk(pred_dir, gt_dir, device="cuda", compute_extra_metrics=Tr
         table = dict(
             mean_psnr=mean_psnr,
             std_psnr=std_psnr,
-            mean_inference_time=mean_inference_time,
         )
+
+    table["mean_inference_time"] = f"{'{:.2f}'.format(mean_inference_time)}" + " ms/frame"
 
     logger.log_table(f"⭐ Test Metrics predicted and GT images on disk", record=table)
 
